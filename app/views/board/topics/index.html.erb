@@ -1,0 +1,33 @@
+<%= link_to t('board.topic.new'), "/..g#{@cur_group.id}/board/topics/new" %>
+
+<table>
+  <tr>
+    <th><%= t('board.topic.title') %></th>
+    <th><%= t('board.topic.created') %></th>
+    <th><%= t('board.topic.updated') %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @topics.each do |topic| %>
+  <tr>
+    <td><%= link_to topic.title, "/..g#{@cur_group.id}/board/topics/#{topic.id}" %></td>
+    <td><%= topic.created.strftime("%Y/%m/%d %H:%M") %></td>
+    <td><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></td>
+    <td>
+      <%= link_to(
+            t('board.topic.edit'),
+            "/..g#{@cur_group.id}/board/topics/#{topic.id}/edit"
+          ) %>
+    </td>
+    <td>
+      <%= link_to(
+            t('board.topic.delete'),
+            "/..g#{@cur_group.id}/board/topics/#{topic.id}",
+            method: :delete,
+            data: {confirm: t('board.topic.confirm')}
+          ) %>
+    </td>
+  </tr>
+  <% end %>
+</table>

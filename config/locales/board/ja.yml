@@ -1,0 +1,21 @@
+ja:
+  board:
+    topic:
+      title: タイトル
+      body: 本文
+      created: 投稿日
+      updated: 最終更新日
+      comment: コメント
+      new: 新規作成
+      edit: 編集
+      submit: 投稿
+      update: 更新
+      delete: 削除
+    comment:
+      body: 本文
+      created: 投稿日
+      updated: 最終更新日
+      submit: 投稿
+      update: 更新
+      delete: 削除
+      confirm: 削除しますか？
