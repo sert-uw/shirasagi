@@ -1,5 +1,5 @@
 class Board::Thread
-  include Mongoid::Document
+  include SS::Document
 
   field :title, type: String
   field :body, type: String
