@@ -2,16 +2,12 @@ require 'spec_helper'
 
 RSpec.describe Board::Thread, type: :model, dbscope: :example do
   it "isn't valid without title and body" do
-    thread = Board::Thread.new
-    thread.title = "title"
-    thread.body = "body"
+    thread = build(:board_thread)
     expect(thread).to be_valid
   end
 
   it "isn't valid without title" do
-    thread = Board::Thread.new
-    thread.title = nil
-    thread.body = "body"
+    thread = build(:board_thread, title: nil)
     expect(thread).not_to be_valid
   end
 
@@ -19,7 +15,7 @@ RSpec.describe Board::Thread, type: :model, dbscope: :example do
     subject { thread.latest_created_datetime }
 
     before do
-      @thread_id = Board::Thread.create(title: 'title', body: 'body').id
+      @thread_id = create(:board_thread).id
     end
 
     let(:thread) { Board::Thread.find(@thread_id) }
@@ -32,7 +28,7 @@ RSpec.describe Board::Thread, type: :model, dbscope: :example do
 
     context "when one response" do
       before do
-        @res_id = thread.responses.create(body: 'body').id
+        @res_id = create(:board_response, thread: thread).id
       end
 
       it { is_expected.to eq response.created }
@@ -41,7 +37,7 @@ RSpec.describe Board::Thread, type: :model, dbscope: :example do
     context "when two responses" do
       before do
         thread.responses.create(body: 'body').id
-        @res_id = thread.responses.create(body: 'body').id
+        @res_id = create(:board_response, thread: thread).id
       end
 
       it { is_expected.to eq response.created }
@@ -49,55 +45,46 @@ RSpec.describe Board::Thread, type: :model, dbscope: :example do
   end
 
   describe ".order_by_newer_response" do
-    let(:threads) { Board::Thread.order_by_newer_response }
+    subject { Board::Thread.order_by_newer_response }
 
     context "no thread" do
-      it { expect(threads).to be_empty }
+      it { is_expected.to be_empty }
     end
 
     context "thread exist" do
       context "one thread" do
         before do
-          @thread = Board::Thread.create(title: 't', body: 'b')
+          @thread = create(:board_thread)
         end
 
-        it { expect(threads.first.id).to eq @thread.id }
+        it { is_expected.to eq [@thread] }
       end
 
       context "two thread" do
+        before do
+          @thread1 = create(:board_thread)
+          @thread2 = create(:board_thread)
+        end
+
         context "no response" do
-          before do
-            @thread1 = Board::Thread.create(title: 't1', body: 'b1')
-            @thread2 = Board::Thread.create(title: 't2', body: 'b2')
-          end
-
-          it { expect(threads[0].id).to eq @thread2.id }
-          it { expect(threads[1].id).to eq @thread1.id }
+          it { is_expected.to eq [@thread2, @thread1] }
         end
 
-        context "thread1 has response" do
+        context "thread1 has a response" do
           before do
-            @thread1 = Board::Thread.create(title: 't1', body: 'b1')
-            @thread2 = Board::Thread.create(title: 't2', body: 'b2')
-
-            @thread1.responses.create body: 'body'
+            create(:board_response, thread: @thread1)
           end
 
-          it { expect(threads[0].id).to eq @thread1.id }
-          it { expect(threads[1].id).to eq @thread2.id }
+          it { is_expected.to eq [@thread1, @thread2] }
         end
 
-        context "two thread has response" do
+        context "two threads have a response" do
           before do
-            @thread1 = Board::Thread.create(title: 't1', body: 'b1')
-            @thread2 = Board::Thread.create(title: 't2', body: 'b2')
-
-            @thread1.responses.create body: 'body'
-            @thread2.responses.create body: 'body'
+            create(:board_response, thread: @thread1)
+            create(:board_response, thread: @thread2)
           end
 
-          it { expect(threads[0].id).to eq @thread2.id }
-          it { expect(threads[1].id).to eq @thread1.id }
+          it { is_expected.to eq [@thread2, @thread1] }
         end
       end
     end
