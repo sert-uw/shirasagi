@@ -1,0 +1,18 @@
+<table>
+  <%= link_to "新規作成", "/..g:group/board/topics/new" %><br><br>
+
+  <tr>
+    <td>タイトル</td>
+    <td>登録日</td>
+    <td>--</td>
+  </tr>
+
+  <% @topics.each do |topic| %>
+  <tr>
+    <td><%= link_to topic.title, "/..g:group/board/topics/#{topic.id}" %></td>
+
+    <td><%= topic.created.strftime("%Y年%m月%d日") %></td>
+    <td><%= link_to "削除", "/..g:group/board/topics/#{topic.id}", method: :delete, data: { confirm: "削除しますか？" }  %></td>
+  </tr>
+  <% end %>
+</table>
