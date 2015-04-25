@@ -1,0 +1,18 @@
+<%= form_for :topic, url: {action: 'create'} do |f| %>
+<table>
+  <tr>
+    <td>タイトル</td>
+    <td>
+      <%= f.text_field :title %>
+    </td>
+  </tr>
+  <tr>
+    <td>本文</td>
+    <td>
+      <%= f.text_area :body %>
+    </td>
+  </tr>
+</table>
+
+<%= f.submit:登録 %>
+<% end %>
