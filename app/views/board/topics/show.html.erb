@@ -1,13 +1,32 @@
 <table>
   <tr>
-    <td>
-      タイトル : <%= @topic.title %>
-    </td>
+    <td>タイトル : <%= @topic.title %></td>
   </tr>
 
   <tr>
-    <td>
-      本文 : <%= @topic.body %>
-    </td>
+    <td>本文 : <%= @topic.body %></td>
   </tr>
+</table>
+
+<br>
+
+<table>
+  <%= form_for :response, url: "/..g:group/board/topics/#{@topic._id}/responses" do |f| %>
+    <tr>
+      <td><%= f.text_area :body %></td>
+      <td><%= f.submit "送信" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<table>
+  <% @responses.each do |res| %>
+  <tr>
+    <td><%= res.created.strftime("%Y年%m月%d日") %></td>
+    <td><%= res.body %></td>
+    <td><%= link_to "削除", "/..g:group/board/topics/#{@topic._id}/responses?id=#{res._id}", method: :delete, data: { confirm: "削除しますか？" }  %></td>
+  </tr>
+  <% end %>
 </table>
