@@ -22,4 +22,7 @@ class Board::Post
       parent.update_parent_descendants_updated time
     end
   end
+
+  scope :topic, ->{ exists parent_id: false }
+  scope :comment, ->{ exists parent_id: true }
 end
