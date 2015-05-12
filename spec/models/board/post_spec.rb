@@ -131,5 +131,21 @@ RSpec.describe Board::Post, type: :model, dbscope: :example do
         end
       end
     end
+
+    describe "topic scope" do
+      subject { described_class.topic }
+      let!(:topic) { create :board_topic }
+      let!(:comment) { create :board_comment }
+      it { is_expected.to include(topic) }
+      it { is_expected.not_to include(comment) }
+    end
+
+    describe "topic scope" do
+      subject { described_class.comment }
+      let!(:topic) { create :board_topic }
+      let!(:comment) { create :board_comment }
+      it { is_expected.not_to include(topic) }
+      it { is_expected.to include(comment) }
+    end
   end
 end
