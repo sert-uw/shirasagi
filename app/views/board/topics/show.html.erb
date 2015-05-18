@@ -22,7 +22,7 @@
     <div>
       <%= link_to(
               t('board.comment.delete'),
-              "/..g#{@cur_group.id}/board/topics/#{@topic.id}/comments/#{comment.id}",
+              board_topic_comment_path(@cur_group.id, @topic.id, comment.id),
               method: :delete,
               data: {confirm: t('board.comment.confirm')}
             ) %>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="commentForm">
-  <%= form_for :comment, url: "/..g#{@cur_group.id}/board/topics/#{@topic._id}/comments" do |f| %>
+  <%= form_for :comment, url: board_topic_comments_path(@cur_group.id, @topic._id) do |f| %>
     <dl>
       <dt><%= t('board.topic.comment') %></dt>
       <dd><%= f.text_area :body %></dd>
