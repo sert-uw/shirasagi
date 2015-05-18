@@ -7,33 +7,36 @@
 
 <h2><%= t('board.topic.comment') %></h2>
 
-<table>
-  <tr>
-    <th><%= t('board.comment.body') %></th>
-    <th><%= t('board.comment.created') %></th>
-    <th><%= t('board.comment.updated') %></th>
-    <th></th>
-  </tr>
+<div class="">
+  <div class="label">
+    <div><%= t('board.comment.body') %></div>
+    <div><%= t('board.comment.created') %></div>
+    <div><%= t('board.comment.updated') %></div>
+  </div>
+
   <% @topic.children.each do |comment| %>
-  <tr>
-    <td><%= comment.body %></td>
-    <td><%= comment.created.strftime("%Y年%m月%d日") %></td>
-    <td><%= comment.updated.strftime("%Y年%m月%d日") %></td>
-    <td>
+  <div class="contents">
+    <div><%= comment.body %></div>
+    <div><%= comment.created.strftime("%Y年%m月%d日") %></div>
+    <div><%= comment.updated.strftime("%Y年%m月%d日") %></div>
+    <div>
       <%= link_to(
               t('board.comment.delete'),
               "/..g#{@cur_group.id}/board/topics/#{@topic.id}/comments/#{comment.id}",
               method: :delete,
               data: {confirm: t('board.comment.confirm')}
             ) %>
-    </td>
-  </tr>
+    </div>
+  </div>
   <% end %>
-</table>
+</div>
 
-<%= form_for :comment, url: "/..g#{@cur_group.id}/board/topics/#{@topic._id}/comments" do |f| %>
-  <dl>
-    <dt><%= f.text_area :body %></dt>
-    <%= f.submit t('board.comment.submit') %>
-  </dl>
-<% end %>
+<div class="commentForm">
+  <%= form_for :comment, url: "/..g#{@cur_group.id}/board/topics/#{@topic._id}/comments" do |f| %>
+    <dl>
+      <dt><%= t('board.topic.comment') %></dt>
+      <dd><%= f.text_area :body %></dd>
+      <dd><%= f.submit t('board.comment.submit') %></dd>
+    </dl>
+  <% end %>
+</div>
