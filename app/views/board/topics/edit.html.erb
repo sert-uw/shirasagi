@@ -1,5 +1,5 @@
 <div class="editForm">
-  <%= form_for :topic, url: {action: 'update'} do |f| %>
+  <%= form_for :topic, url: {action: :update}, html: {method: :put} do |f| %>
     <%= error_messages_for :topic %>
     <%= render partial: 'form', locals: {f: f} %>
       <dl>
