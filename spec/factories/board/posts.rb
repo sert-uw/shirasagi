@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :board_post, class: Board::Post do
+    title ''
     body ''
 
     factory :board_topic do

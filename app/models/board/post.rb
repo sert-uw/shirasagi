@@ -1,6 +1,7 @@
 class Board::Post
   include SS::Document
 
+  field :title, type: String
   field :body, type: String
   field :descendants_updated, type: DateTime
 
