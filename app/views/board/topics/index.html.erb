@@ -1,33 +1,31 @@
-<%= link_to t('board.topic.new'), "/..g#{@cur_group.id}/board/topics/new" %>
+<div class="linkNew"><%= link_to t('board.topic.new'), "/..g#{@cur_group.id}/board/topics/new" %></div>
 
-<table>
-  <tr>
-    <th><%= t('board.topic.title') %></th>
-    <th><%= t('board.topic.created') %></th>
-    <th><%= t('board.topic.updated') %></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="topics">
+  <div class="label">
+    <div><%= t('board.topic.title') %></div>
+    <div><%= t('board.topic.created') %></div>
+    <div><%= t('board.topic.updated') %></div>
+  </div>
 
   <% @topics.each do |topic| %>
-  <tr>
-    <td><%= link_to topic.title, "/..g#{@cur_group.id}/board/topics/#{topic.id}" %></td>
-    <td><%= topic.created.strftime("%Y/%m/%d %H:%M") %></td>
-    <td><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></td>
-    <td>
+  <div class="contents">
+    <div><%= link_to topic.title, "/..g#{@cur_group.id}/board/topics/#{topic.id}" %></div>
+    <div><%= topic.created.strftime("%Y/%m/%d %H:%M") %></div>
+    <div><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></div>
+    <div>
       <%= link_to(
             t('board.topic.edit'),
             "/..g#{@cur_group.id}/board/topics/#{topic.id}/edit"
           ) %>
-    </td>
-    <td>
+    </div>
+    <div>
       <%= link_to(
             t('board.topic.delete'),
             "/..g#{@cur_group.id}/board/topics/#{topic.id}",
             method: :delete,
             data: {confirm: t('board.topic.confirm')}
           ) %>
-    </td>
-  </tr>
+    </div>
+  </div>
   <% end %>
-</table>
+</div>
