@@ -11,6 +11,7 @@ ja:
       submit: 投稿
       update: 更新
       delete: 削除
+      list: トピックス一覧へ
     comment:
       body: 本文
       created: 投稿日
