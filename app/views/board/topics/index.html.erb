@@ -1,4 +1,4 @@
-<div class="linkNew"><%= link_to t('board.topic.new'), "/..g#{@cur_group.id}/board/topics/new" %></div>
+<div class="linkNew"><%= link_to t('board.topic.new'), new_board_topic_path(@cur_group.id) %></div>
 
 <div class="topics">
   <div class="label">
@@ -9,19 +9,18 @@
 
   <% @topics.each do |topic| %>
   <div class="contents">
-    <div><%= link_to topic.title, "/..g#{@cur_group.id}/board/topics/#{topic.id}" %></div>
+    <div><%= link_to topic.title, board_topic_path(@cur_group, topic.id) %></div>
     <div><%= topic.created.strftime("%Y/%m/%d %H:%M") %></div>
     <div><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></div>
     <div>
       <%= link_to(
             t('board.topic.edit'),
-            "/..g#{@cur_group.id}/board/topics/#{topic.id}/edit"
-          ) %>
+            edit_board_topic_path(@cur_group, topic.id) ) %>
     </div>
     <div>
       <%= link_to(
             t('board.topic.delete'),
-            "/..g#{@cur_group.id}/board/topics/#{topic.id}",
+            board_topic_path(@cur_group, topic.id),
             method: :delete,
             data: {confirm: t('board.topic.confirm')}
           ) %>
