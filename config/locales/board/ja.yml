@@ -12,6 +12,7 @@ ja:
       update: 更新
       delete: 削除
       list: トピック一覧へ
+      confirm: 削除しますか？
       notice:
         create: トピックを作成しました
         update: トピックを更新しました
