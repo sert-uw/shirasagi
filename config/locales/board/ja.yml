@@ -24,3 +24,7 @@ ja:
       update: 更新
       delete: 削除
       confirm: 削除しますか？
+      notice:
+        create: コメントを投稿しました
+        update: コメントを更新しました
+        delete: コメントを削除しました

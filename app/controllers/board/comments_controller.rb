@@ -18,7 +18,7 @@ class Board::CommentsController < ApplicationController
   def create
     @comment = @topic.children.build(comment_params)
     if @comment.save
-      redirect_to board_topic_path(current_group.id, @topic.id), notice: 'Response was successfully created.'
+      redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.create')
     else
       render :new
     end
@@ -26,7 +26,7 @@ class Board::CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to board_topic_path(current_group.id, @topic.id), notice: 'Response was successfully updated.'
+      redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.update')
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class Board::CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to board_topic_path(current_group.id, @topic.id), notice: 'Response was successfully destroyed.'
+    redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.delete')
   end
 
   private
