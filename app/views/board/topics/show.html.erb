@@ -10,29 +10,29 @@
 
 <h2><%= t('board.topic.comment') %></h2>
 
-<div class="">
-  <div class="label">
-    <div><%= t('board.comment.body') %></div>
-    <div><%= t('board.comment.created') %></div>
-    <div><%= t('board.comment.updated') %></div>
-  </div>
-
+<table>
+  <tr>
+    <th><%= t('board.comment.body') %></th>
+    <th><%= t('board.comment.created') %></th>
+    <th><%= t('board.comment.updated') %></th>
+    <th></th>
+  </tr>
   <% @topic.children.each do |comment| %>
-  <div class="contents">
-    <div><%= comment.body %></div>
-    <div><%= comment.created.strftime("%Y年%m月%d日") %></div>
-    <div><%= comment.updated.strftime("%Y年%m月%d日") %></div>
-    <div>
+  <tr>
+    <td><%= comment.body %></td>
+    <td><%= comment.created.strftime("%Y年%m月%d日") %></td>
+    <td><%= comment.updated.strftime("%Y年%m月%d日") %></td>
+    <td>
       <%= link_to(
               t('board.comment.delete'),
               board_topic_comment_path(@cur_group.id, @topic.id, comment.id),
               method: :delete,
               data: {confirm: t('board.comment.confirm')}
             ) %>
-    </div>
-  </div>
+    </td>
+  </tr>
   <% end %>
-</div>
+</table>
 
 <div class="commentForm">
   <%= form_for :comment, url: board_topic_comments_path(@cur_group.id, @topic._id) do |f| %>
