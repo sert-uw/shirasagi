@@ -18,7 +18,7 @@ class Board::TopicsController < ApplicationController
   def create
     @topic = Board::Post.new(topic_params)
     if @topic.save
-      redirect_to board_topic_url(id: @topic.id), notice: 'Topic was successfully created.'
+      redirect_to board_topic_url(id: @topic.id), notice: t('board.topic.notice.create')
     else
       render :new
     end
@@ -26,7 +26,7 @@ class Board::TopicsController < ApplicationController
 
   def update
     if @topic.update(topic_params)
-      redirect_to board_topics_url(id: @topic._id), notice: 'Topic was successfully updated.'
+      redirect_to board_topics_url(id: @topic._id), notice: t('board.topic.notice.update')
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class Board::TopicsController < ApplicationController
 
   def destroy
     @topic.destroy
-    redirect_to board_topics_url, notice: 'Topic was successfully destroyed.'
+    redirect_to board_topics_url, notice: t('board.topic.notice.delete')
   end
 
   private
