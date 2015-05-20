@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th><%= t('board.topic.title') %></th>
+    <th><%= t('board.user') %></th>
     <th><%= t('board.topic.created') %></th>
     <th><%= t('board.topic.updated') %></th>
     <th></th>
@@ -12,6 +13,7 @@
   <% @topics.each do |topic| %>
   <tr>
     <td><%= link_to topic.title, board_topic_path(@cur_group, topic.id) %></td>
+    <td><%= topic.user.name %></td>
     <td><%= topic.created.strftime("%Y/%m/%d %H:%M") %></td>
     <td><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></td>
     <td>

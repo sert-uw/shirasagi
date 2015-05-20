@@ -1,5 +1,6 @@
 ja:
   board:
+    user: ユーザ
     topic:
       title: タイトル
       body: 本文
