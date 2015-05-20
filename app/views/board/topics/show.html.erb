@@ -16,30 +16,9 @@
     <th><%= t('board.comment.created') %></th>
     <th><%= t('board.comment.updated') %></th>
     <th></th>
+    <th></th>
   </tr>
-  <% @topic.children.each do |comment| %>
-  <tr>
-    <td><%= comment.body %></td>
-    <td><%= comment.created.strftime("%Y年%m月%d日") %></td>
-    <td><%= comment.updated.strftime("%Y年%m月%d日") %></td>
-    <td>
-      <%= link_to(
-              t('board.comment.delete'),
-              board_topic_comment_path(@cur_group.id, @topic.id, comment.id),
-              method: :delete,
-              data: {confirm: t('board.comment.confirm')}
-            ) %>
-    </td>
-  </tr>
-  <% end %>
+  <%= render file: 'board/comments/index', locals: {parent: @topic} %>
 </table>
 
-<div class="commentForm">
-  <%= form_for :comment, url: board_topic_comments_path(@cur_group.id, @topic._id) do |f| %>
-    <dl>
-      <dt><%= t('board.topic.comment') %></dt>
-      <dd><%= f.text_area :body %></dd>
-      <dd><%= f.submit t('board.comment.submit') %></dd>
-    </dl>
-  <% end %>
-</div>
+<%= render file: 'board/comments/_form', locals: {parent: @topic} %>

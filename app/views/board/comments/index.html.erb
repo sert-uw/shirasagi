@@ -1,0 +1,21 @@
+<% parent.children.each do |comment| %>
+<tr>
+  <td><%= comment.body %></td>
+  <td><%= comment.created.strftime("%Y年%m月%d日") %></td>
+  <td><%= comment.updated.strftime("%Y年%m月%d日") %></td>
+  <td>
+  </td>
+    <%= link_to(
+            t('board.comment.edit'),
+            edit_board_comment_path(@cur_group.id, comment.id)
+          ) %>
+  <td>
+    <%= link_to(
+            t('board.comment.delete'),
+            board_topic_comment_path(@cur_group.id, @topic.id, comment.id),
+            method: :delete,
+            data: {confirm: t('board.comment.confirm')}
+          ) %>
+  </td>
+</tr>
+<% end %>
