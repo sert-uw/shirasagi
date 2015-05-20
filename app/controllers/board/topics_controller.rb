@@ -17,6 +17,7 @@ class Board::TopicsController < ApplicationController
 
   def create
     @topic = Board::Post.new(topic_params)
+    @topic.user = @cur_user
     if @topic.save
       redirect_to board_topic_url(id: @topic.id), notice: t('board.topic.notice.create')
     else
