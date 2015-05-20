@@ -17,6 +17,7 @@ class Board::CommentsController < ApplicationController
 
   def create
     @comment = @topic.children.build(comment_params)
+    @comment.user = @cur_user
     if @comment.save
       redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.create')
     else
