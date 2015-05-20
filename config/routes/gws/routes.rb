@@ -10,7 +10,8 @@ SS::Application.routes.draw do
 
   gws "board" do
     resources :topics do
-      resources :comments
+      resources :comments, only: [:index, :new, :create]
     end
+    resources :comments, only: [:show, :edit, :destroy]
   end
 end
