@@ -1,8 +1,8 @@
 class Board::CommentsController < ApplicationController
   include Gws::BaseFilter
 
-  before_action :set_topic
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, only: [:index, :new, :update, :create]
+  before_action :set_comment, only: [:show, :edit, :destroy]
 
   def index
     @comments = @topic.children.order(created: -1)
@@ -35,7 +35,7 @@ class Board::CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.delete')
+    redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.comment.notice.delete')
   end
 
   private
@@ -44,7 +44,7 @@ class Board::CommentsController < ApplicationController
     end
 
     def set_comment
-      @comment = @topic.children.find(params[:id])
+      @comment = Board::Post.find(params[:id])
     end
 
     def comment_params
