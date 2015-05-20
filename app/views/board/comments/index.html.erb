@@ -1,5 +1,6 @@
 <% parent.children.each do |comment| %>
 <tr>
+  <td><%= comment.user.name %></td>
   <td><%= comment.body %></td>
   <td><%= comment.created.strftime("%Y年%m月%d日") %></td>
   <td><%= comment.updated.strftime("%Y年%m月%d日") %></td>
