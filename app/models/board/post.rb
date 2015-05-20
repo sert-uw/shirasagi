@@ -5,6 +5,7 @@ class Board::Post
   field :body, type: String
   field :descendants_updated, type: DateTime
 
+  belongs_to :user, class_name: "SS::User"
   belongs_to :parent, class_name: "Board::Post"
 
   has_many :children, class_name: "Board::Post", dependent: :destroy
