@@ -11,6 +11,14 @@ class Board::CommentsController < ApplicationController
   def show
   end
 
+  def edit
+    if @comment.user == @cur_user
+      render :edit
+    else
+      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.no_authority')
+    end
+  end
+
   def new
     @comment = @topic.children.build
   end
@@ -34,8 +42,12 @@ class Board::CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.comment.notice.delete')
+    if @comment.user == @cur_user
+      @comment.destroy
+      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.comment.notice.delete')
+    else
+      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.no_authority')
+    end
   end
 
   private
