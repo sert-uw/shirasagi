@@ -5,6 +5,7 @@ class Board::Post
   field :body, type: String
   field :descendants_updated, type: DateTime
 
+  belongs_to :group, class_name: "SS::Group"
   belongs_to :user, class_name: "SS::User"
   belongs_to :parent, class_name: "Board::Post"
 
@@ -25,6 +26,6 @@ class Board::Post
     end
   end
 
-  scope :topic, ->{ exists parent_id: false }
+  scope :topic, ->(group_id) { where(group_id: group_id).exists parent_id: false }
   scope :comment, ->{ exists parent_id: true }
 end
