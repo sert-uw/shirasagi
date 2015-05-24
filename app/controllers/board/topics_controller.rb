@@ -4,7 +4,7 @@ class Board::TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   def index
-    @topics = Board::Post.topic.order(descendants_updated: -1)
+    @topics = Board::Post.topic(params[:group]).order(descendants_updated: -1)
   end
 
   def show
@@ -26,6 +26,7 @@ class Board::TopicsController < ApplicationController
   def create
     @topic = Board::Post.new(topic_params)
     @topic.user = @cur_user
+    @topic.group = SS::Group.find(params[:group])
     if @topic.save
       redirect_to board_topic_url(id: @topic.id), notice: t('board.topic.notice.create')
     else
