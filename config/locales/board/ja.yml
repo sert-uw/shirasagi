@@ -1,6 +1,7 @@
 ja:
   board:
     user: ユーザ
+    no_authority: 権限がありません
     topic:
       title: タイトル
       body: 本文

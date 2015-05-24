@@ -11,6 +11,14 @@ class Board::TopicsController < ApplicationController
     @comments = @topic.children
   end
 
+  def edit
+    if @topic.user == @cur_user
+      render :edit
+    else
+      redirect_to board_topics_url, notice: t('board.no_authority')
+    end
+  end
+
   def new
     @topic = Board::Post.new
   end
@@ -34,8 +42,12 @@ class Board::TopicsController < ApplicationController
   end
 
   def destroy
-    @topic.destroy
-    redirect_to board_topics_url, notice: t('board.topic.notice.delete')
+    if @topic.user == @cur_user
+      @topic.destroy
+      redirect_to board_topics_url, notice: t('board.topic.notice.delete')
+    else
+      redirect_to board_topics_url, notice: t('board.no_authority')
+    end
   end
 
   private
