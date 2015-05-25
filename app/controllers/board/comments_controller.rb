@@ -1,5 +1,6 @@
 class Board::CommentsController < ApplicationController
   include Gws::BaseFilter
+  include SS::CrudFilter
 
   before_action :set_topic, only: [:index, :new, :update, :create]
   before_action :set_comment, only: [:show, :edit, :destroy]

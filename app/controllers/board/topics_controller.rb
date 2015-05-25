@@ -1,5 +1,6 @@
 class Board::TopicsController < ApplicationController
   include Gws::BaseFilter
+  include SS::CrudFilter
 
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
