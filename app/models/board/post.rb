@@ -1,8 +1,8 @@
 class Board::Post
   include SS::Document
 
-  field :title, type: String
-  field :body, type: String
+  field :name, type: String
+  field :text, type: String
   field :descendants_updated, type: DateTime
 
   belongs_to :group, class_name: "SS::Group"
