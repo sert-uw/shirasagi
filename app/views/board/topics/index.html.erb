@@ -10,22 +10,22 @@
     <th></th>
   </tr>
 
-  <% @topics.each do |topic| %>
+  <% @items.each do |item| %>
   <tr>
-    <td><%= link_to topic.name, board_topic_path(@cur_group, topic.id) %></td>
-    <td><%= topic.user.name %></td>
-    <td><%= topic.created.strftime("%Y/%m/%d %H:%M") %></td>
-    <td><%= topic.updated.strftime("%Y/%m/%d %H:%M") %></td>
+    <td><%= link_to item.name, board_topic_path(@cur_group, item.id) %></td>
+    <td><%= item.user.name %></td>
+    <td><%= item.created.strftime("%Y/%m/%d %H:%M") %></td>
+    <td><%= item.updated.strftime("%Y/%m/%d %H:%M") %></td>
     <td>
       <%= link_to(
             t('board.topic.edit'),
-            edit_board_topic_path(@cur_group, topic.id)
+            edit_board_topic_path(@cur_group, item.id)
           ) %>
     </td>
     <td>
       <%= link_to(
             t('board.topic.delete'),
-            board_topic_path(@cur_group, topic.id),
+            board_topic_path(@cur_group, item.id),
             method: :delete,
             data: {confirm: t('board.topic.confirm')}
           ) %>

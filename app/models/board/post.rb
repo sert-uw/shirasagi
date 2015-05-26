@@ -5,6 +5,8 @@ class Board::Post
   field :text, type: String
   field :descendants_updated, type: DateTime
 
+  permit_params :name, :text
+
   belongs_to :group, class_name: "SS::Group"
   belongs_to :user, class_name: "SS::User"
   belongs_to :parent, class_name: "Board::Post"

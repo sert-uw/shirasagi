@@ -3,11 +3,11 @@
 
 <dl class="see">
   <dt><%= t('board.user') %></dt>
-  <dd><%= @topic.user.name %></dd>
+  <dd><%= @item.user.name %></dd>
   <dt><%= t('board.topic.title') %></dt>
-  <dd><%= @topic.name %></dd>
+  <dd><%= @item.name %></dd>
   <dt><%= t('board.topic.body') %></dt>
-  <dd><%= @topic.text %></dd>
+  <dd><%= @item.text %></dd>
 </dl>
 
 <h2><%= t('board.topic.comment') %></h2>
@@ -21,7 +21,7 @@
     <th></th>
     <th></th>
   </tr>
-  <%= render file: 'board/comments/index', locals: {parent: @topic} %>
+  <%= render file: 'board/comments/index', locals: {parent: @item} %>
 </table>
 
-<%= render file: 'board/comments/_form', locals: {parent: @topic} %>
+<%= render file: 'board/comments/_form', locals: {parent: @item} %>
