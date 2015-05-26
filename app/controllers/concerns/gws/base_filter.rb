@@ -11,5 +11,24 @@ module Gws::BaseFilter
 
     # TODO 権限の処理もする(見られないグループなら403)
     #      cms/base_filter参考
+
+  end
+
+  def author?
+    Board::Post.find(@item.id).user == @cur_user
+  end
+
+  def board_authority_check path
+    unless author?
+      redirect_to path, notice: t('board.no_authority')
+    end
+  end
+
+  def topic_authority_check
+    board_authority_check board_topics_path(@cur_group.id)
+  end
+
+  def comment_authority_check
+    board_authority_check board_topic_path(@cur_group.id, @item.parent.id)
   end
 end

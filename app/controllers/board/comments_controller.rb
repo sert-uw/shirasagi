@@ -2,65 +2,39 @@ class Board::CommentsController < ApplicationController
   include Gws::BaseFilter
   include SS::CrudFilter
 
-  before_action :set_topic, only: [:index, :new, :update, :create]
-  before_action :set_comment, only: [:show, :edit, :destroy]
+  before_action :set_topic, only: [:create]
+  before_action :comment_authority_check, only: [:edit, :destroy]
 
-  def index
-    @comments = @topic.children.order(created: -1)
+  model Board::Post
+
+  def fix_params
+    { user: @cur_user, group: @cur_group }
   end
 
-  def show
+  def get_params
+    params.require(:comment).permit(permit_fields).merge(fix_params)
   end
 
-  def edit
-    if @comment.user == @cur_user
-      render :edit
-    else
-      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.no_authority')
-    end
+  def set_item
+    super
+    @topic = @item.parent
   end
 
-  def new
-    @comment = @topic.children.build
+  def set_topic
+    @topic = @model.find(params[:topic_id])
   end
 
   def create
-    @comment = @topic.children.build(comment_params)
-    @comment.user = @cur_user
-    if @comment.save
-      redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.create')
-    else
-      render :new
-    end
-  end
-
-  def update
-    if @comment.update(comment_params)
-      redirect_to board_topic_path(current_group.id, @topic.id), notice: t('board.comment.notice.update')
-    else
-      render :edit
-    end
+    comment = @topic.children.build get_params
+    render_create comment.save, render_options
   end
 
   def destroy
-    if @comment.user == @cur_user
-      @comment.destroy
-      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.comment.notice.delete')
-    else
-      redirect_to board_topic_path(current_group.id, @comment.parent.id), notice: t('board.no_authority')
-    end
+    render_destroy @item.destroy, render_options
   end
 
   private
-    def set_topic
-      @topic = Board::Post.find(params[:topic_id])
-    end
-
-    def set_comment
-      @comment = Board::Post.find(params[:id])
-    end
-
-    def comment_params
-      params.require(:comment).permit(:text)
+    def render_options
+      { location: board_topic_path(@cur_group.id, @topic.id) }
     end
 end
