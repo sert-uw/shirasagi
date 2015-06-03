@@ -1,0 +1,9 @@
+<div class="topicForm">
+  <%= form_for :item, url: {action: 'create'} do |f| %>
+    <%= error_messages_for :item %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <dl>
+      <dd><%= f.submit t('board.topic.submit') %></dd>
+    </dl>
+  <% end %>
+</div>

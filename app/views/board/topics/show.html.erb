@@ -1,0 +1,27 @@
+<div class="linkIndex"><%= link_to t('board.topic.list'), board_topics_path(@cur_group.id) %></div>
+</br>
+
+<dl class="see">
+  <dt><%= t('board.user') %></dt>
+  <dd><%= @item.user.name %></dd>
+  <dt><%= t('board.topic.title') %></dt>
+  <dd><%= @item.name %></dd>
+  <dt><%= t('board.topic.body') %></dt>
+  <dd><%= @item.text %></dd>
+</dl>
+
+<h2><%= t('board.topic.comment') %></h2>
+
+<table>
+  <tr>
+    <th><%= t('board.user') %></th>
+    <th><%= t('board.comment.body') %></th>
+    <th><%= t('board.comment.created') %></th>
+    <th><%= t('board.comment.updated') %></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <%= render file: 'board/comments/index', locals: {parent: @item} %>
+</table>
+
+<%= render file: 'board/comments/_form', locals: {parent: @item} %>

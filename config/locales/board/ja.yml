@@ -1,0 +1,34 @@
+ja:
+  board:
+    user: ユーザ
+    no_authority: 権限がありません
+    topic:
+      title: タイトル
+      body: 本文
+      created: 投稿日
+      updated: 最終更新日
+      comment: コメント
+      new: 新規作成
+      edit: 編集
+      submit: 投稿
+      update: 更新
+      delete: 削除
+      list: トピック一覧へ
+      confirm: 削除しますか？
+      notice:
+        create: トピックを作成しました
+        update: トピックを更新しました
+        delete: トピックを削除しました
+    comment:
+      body: 本文
+      created: 投稿日
+      updated: 最終更新日
+      submit: 投稿
+      update: 更新
+      edit: 編集
+      delete: 削除
+      confirm: 削除しますか？
+      notice:
+        create: コメントを投稿しました
+        update: コメントを更新しました
+        delete: コメントを削除しました

@@ -1,0 +1,9 @@
+<div class="editForm">
+  <%= form_for :item, url: {action: :update}, html: {method: :put} do |f| %>
+    <%= error_messages_for :topic %>
+    <%= render partial: 'form', locals: {f: f} %>
+      <dl>
+        <dd><%= f.submit t('board.topic.update') %></dd>
+      </dl>
+  <% end %>
+</div>
