@@ -21,11 +21,12 @@ class Board::CommentsController < ApplicationController
   end
 
   def set_topic
-    @topic = @model.find(params[:topic_id])
+    @topic = @model.find(params[:topic_id]).root_post
   end
 
   def create
-    comment = @topic.children.build get_params
+    comment = @model.new get_params
+    comment.parent = @model.find(params[:topic_id])
     render_create comment.save, render_options
   end
 

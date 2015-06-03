@@ -1,6 +1,3 @@
-<div class="linkIndex"><%= link_to t('board.topic.list'), board_topics_path(@cur_group.id) %></div>
-</br>
-
 <dl class="see">
   <dt><%= t('board.user') %></dt>
   <dd><%= @item.user.name %></dd>
@@ -21,7 +18,7 @@
     <th></th>
     <th></th>
   </tr>
-  <%= render file: 'board/comments/index', locals: {parent: @item} %>
 </table>
+ <%= render partial: 'board/comments/comment', collection: @item.children %>
 
 <%= render file: 'board/comments/_form', locals: {parent: @item} %>

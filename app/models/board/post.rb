@@ -28,6 +28,10 @@ class Board::Post
     end
   end
 
+  def root_post
+    parent.nil? ? self : parent.root_post
+  end
+
   scope :topic, ->{ exists parent_id: false }
   scope :comment, ->{ exists parent_id: true }
 end

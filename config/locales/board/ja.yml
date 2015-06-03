@@ -21,6 +21,7 @@ ja:
         delete: トピックを削除しました
     comment:
       body: 本文
+      comment: コメントする
       created: 投稿日
       updated: 最終更新日
       submit: 投稿

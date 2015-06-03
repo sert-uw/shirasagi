@@ -11,7 +11,7 @@ class Board::TopicsController < ApplicationController
   end
 
   def index
-    @items = Board::Post.topic(@cur_group.id).order(descendants_updated: -1)
+    @items = Board::Post.topic.order(descendants_updated: -1)
   end
 
   def show
