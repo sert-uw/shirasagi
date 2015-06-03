@@ -30,4 +30,23 @@ module Gws::BaseFilter
         raise "403" unless @cur_group
       end
   end
+
+  # TODO Remove following codes because of dependencies each other
+  def author?
+    Board::Post.find(@item.id).user == @cur_user
+  end
+
+  def board_authority_check path
+    unless author?
+      redirect_to path, notice: t('board.no_authority')
+    end
+  end
+
+  def topic_authority_check
+    board_authority_check board_topics_path(@cur_group.id)
+  end
+
+  def comment_authority_check
+    board_authority_check board_topic_path(@cur_group.id, @item.parent.id)
+  end
 end
