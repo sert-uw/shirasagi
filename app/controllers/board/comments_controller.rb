@@ -3,6 +3,7 @@ class Board::CommentsController < ApplicationController
   include SS::CrudFilter
 
   before_action :set_topic, only: [:create]
+  before_action :set_parent, only: [:new]
   before_action :comment_authority_check, only: [:edit, :destroy]
 
   model Board::Post
@@ -17,11 +18,15 @@ class Board::CommentsController < ApplicationController
 
   def set_item
     super
-    @topic = @item.parent
+    @topic = @item.root_post
   end
 
   def set_topic
     @topic = @model.find(params[:topic_id]).root_post
+  end
+
+  def set_parent
+    @parent = @model.find(params[:topic_id])
   end
 
   def create
